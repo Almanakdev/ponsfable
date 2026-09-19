@@ -36,33 +36,34 @@
   </div>
 </header>
 
-<main class="wrap" id="top">
-  <section class="hero">
-    <div>
-      <div class="boot" aria-label="Boot log">
-        <span>ponsFABLE v1.0 — anthill os</span>
-        <span>Tunnels dug ............ <b>ok</b></span>
-        <span>Story seeds stored ..... <b>ok</b></span>
-        <span>Chain link ............. <b>Robinhood Chain</b></span>
-      </div>
-      <h1>An ant that <em>tells fables.</em></h1>
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-media">
+      <canvas class="px" id="hill" width="640" height="440" tabindex="0" aria-label="Interactive anthill. Move the pointer to pan. Click or press Space to drop a story seed. Hover a chamber to inspect it."></canvas>
+      <div class="hero-scrim" aria-hidden="true"></div>
+    </div>
+    <div class="hero-hud">
+      <div class="hero-tag">Colony · <b>awake</b> · <span id="antCount">0</span> ants · <span id="seedCount">0</span> seeds</div>
+    </div>
+    <div class="hero-tip" id="heroTip" hidden></div>
+    <div class="hero-copy">
+      <p class="eyebrow">PONS.FAMILY · ROBINHOOD CHAIN</p>
+      <h1 id="hero-title">An ant that <em>tells fables.</em></h1>
       <p class="lede">Meet Formi, the colony's storyteller. Pick a hero, a moral and a place — she digs up a fresh pixel fable, then lets you choose where the tunnel goes next.</p>
       <div class="hero__cta">
         <a class="btn btn--honey" href="#engine">▶ Start a fable</a>
         <button class="btn" type="button" id="heroAsk">Ask Formi</button>
         <a class="btn btn--dark" href="#token">$FABLE</a>
       </div>
-    </div>
-    <div class="hill">
-      <canvas class="px" id="hill" width="640" height="440" aria-label="Animated pixel cross-section of an anthill with ants carrying story scrolls through tunnels"></canvas>
-      <div class="hill__tag">Colony status · <b>awake</b> · <span id="antCount">0</span> ants carrying tales</div>
+      <p class="hero-hint">Click the hill to drop a story seed · hover a chamber to peek</p>
     </div>
   </section>
 
+  <div class="wrap">
   <div class="strip" role="list">
     <div role="listitem"><span class="k">Storyteller</span><span class="v">Formi, ant AI</span></div>
+    <div role="listitem"><span class="k">On duty</span><span class="v" id="stripDuty">0 ants carrying tales</span></div>
     <div role="listitem"><span class="k">Format</span><span class="v">Branching fables, 3 paths each</span></div>
-    <div role="listitem"><span class="k">Length</span><span class="v">Up to 4 chapters + a moral</span></div>
     <div role="listitem"><span class="k">Chain</span><span class="v">Robinhood Chain · pons.family</span></div>
   </div>
 
@@ -288,6 +289,7 @@
       </div>
     </div>
   </footer>
+  </div>
 </main>
 
 <dialog id="reader">
