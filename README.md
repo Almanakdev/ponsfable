@@ -14,4 +14,4 @@ Without a key the UI still runs in a demo nest (canned replies). With `XAI_API_K
 
 Chats are stored in this browser (`localStorage`).
 
-Official **$FABLE** contract: `0xe6b6d29bcf3484121a074ec161489899d010b36c` — shown on the hero and in the header. Trust only this address.
+Official **$PONSFABLE** contract: `0xe6b6d29bcf3484121a074ec161489899d010b36c` — shown on the hero and in the header. Trust only this address.

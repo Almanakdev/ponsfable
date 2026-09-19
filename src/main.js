@@ -145,7 +145,7 @@ function emptyState() {
   const ca = document.createElement('div');
   ca.className = 'hero-ca';
   ca.innerHTML =
-    '<span class="hero-ca__k">Contract address · $FABLE</span>' +
+    '<span class="hero-ca__k">Contract address · $PONSFABLE</span>' +
     '<code class="hero-ca__v">' + CA + '</code>' +
     '<button class="btn btn--honey" type="button" data-copy-ca>Copy CA</button>';
   const grid = document.createElement('div');
