@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>PONSFABLE</title>
+<title>$PONSFABLE · PONSFABLE</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="1024x1024" href="/logo.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="PONSFABLE — a pixel AI chat. Ask Formi anything: write, code, plan, or tell a fable.">
-<meta property="og:title" content="PONSFABLE">
-<meta property="og:description" content="A pixel AI chat. Ask Formi anything.">
+<meta name="description" content="$PONSFABLE — official contract on Robinhood Chain. Trust only the address on this page.">
+<meta property="og:title" content="$PONSFABLE">
+<meta property="og:description" content="Official $PONSFABLE contract on Robinhood Chain.">
 <meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="/logo.png">
@@ -28,12 +28,9 @@
       <span>PONSFABLE</span>
     </a>
     <nav class="rail-pages" aria-label="Pages">
-      <a class="rail-page is-on" href="/" aria-current="page">Chat</a>
-      <a class="rail-page" href="/token.html">$PONSFABLE</a>
+      <a class="rail-page" href="/">Chat</a>
+      <a class="rail-page is-on" href="/token.html" aria-current="page">$PONSFABLE</a>
     </nav>
-    <button class="btn btn--honey rail-new" type="button" id="newChat">+ New chat</button>
-    <div class="rail-label">Recents</div>
-    <nav class="rail-list" id="chatList" aria-label="Chats"></nav>
     <div class="rail-foot">
       <div class="rail-model">$PONSFABLE CA</div>
       <code class="rail-ca" id="railCa"></code>
@@ -44,12 +41,12 @@
 
   <section class="stage">
     <header class="bar">
-      <button class="btn btn--dark bar-menu" type="button" id="menuBtn" aria-label="Open chats">☰</button>
+      <button class="btn btn--dark bar-menu" type="button" id="menuBtn" aria-label="Open menu">☰</button>
       <div class="bar-who">
         <img class="px" src="/logo.png" width="28" height="28" alt="">
         <div>
-          <strong>Formi</strong>
-          <span id="barStatus">Ready</span>
+          <strong>Token</strong>
+          <span>$PONSFABLE</span>
         </div>
       </div>
       <div class="ca-chip" title="Official $PONSFABLE contract">
@@ -60,20 +57,33 @@
       <span class="clock" id="clock">00:00:00</span>
     </header>
 
-    <div class="banner" id="demoBanner" hidden>Demo nest — add <code>XAI_API_KEY</code> to <code>.env</code> and restart for live Formi.</div>
+    <div class="thread">
+      <div class="thread-inner empty token-hero">
+        <img class="px" src="/logo.png" width="88" height="88" alt="">
+        <h1>An ant that tells fables.</h1>
+        <p>Same nest as the chat. $PONSFABLE is the colony ticker. Trust only the contract on this page.</p>
 
-    <div class="thread" id="thread"></div>
+        <div class="hero-ca">
+          <span class="hero-ca__k">Contract address · $PONSFABLE</span>
+          <code class="hero-ca__v" id="heroCa"></code>
+          <button class="btn btn--honey" type="button" data-copy-ca>Copy CA</button>
+        </div>
 
-    <div class="dock">
-      <form class="composer" id="composer">
-        <textarea id="prompt" rows="1" maxlength="8000" placeholder="Message Formi…" autocomplete="off"></textarea>
-        <button class="btn btn--honey" type="submit" id="sendBtn" aria-label="Send">▶</button>
-        <button class="btn" type="button" id="stopBtn" hidden>Stop</button>
-      </form>
-      <p class="fine">Formi can be wrong. Check anything that matters.</p>
+        <dl class="facts">
+          <div><dt>Ticker</dt><dd>$PONSFABLE</dd></div>
+          <div><dt>Chain</dt><dd>Robinhood Chain</dd></div>
+          <div><dt>Launchpad</dt><dd>pons.family</dd></div>
+          <div><dt>Pair</dt><dd>ETH</dd></div>
+        </dl>
+
+        <div class="hero__cta">
+          <a class="btn btn--honey" href="/">▶ Open Formi chat</a>
+        </div>
+        <p class="hero-hint">Stories are fiction. Nothing here is financial advice.</p>
+      </div>
     </div>
   </section>
 </div>
-<script type="module" src="/src/main.js"></script>
+<script type="module" src="/src/token.js"></script>
 </body>
 </html>
