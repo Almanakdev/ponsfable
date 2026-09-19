@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PONSFABLE</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="1024x1024" href="/logo.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="PONSFABLE — an ant AI that tells fables. Pick a hero, a moral, and a path; Formi digs up the story.">
+<meta property="og:title" content="PONSFABLE">
+<meta property="og:description" content="An ant AI that tells fables. Pick a hero, a moral, and a path; Formi digs up the story.">
+<meta property="og:image" content="/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Pixelify+Sans:wght@500;700&family=Silkscreen:wght@400;700&display=swap">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img class="px" src="/logo.png" width="40" height="40" alt="">PONSFABLE</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#engine">Story engine</a>
+      <a href="#colony">The colony</a>
+      <a href="#book">Fable book</a>
+      <a href="#token">$FABLE</a>
+      <a href="#roadmap">Roadmap</a>
+    </nav>
+    <div class="top__right">
+      <a class="btn btn--honey" href="#engine">Tell a fable</a>
+      <span class="clock" id="clock">00:00:00</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero">
+    <div>
+      <div class="boot" aria-label="Boot log">
+        <span>ponsFABLE v1.0 — anthill os</span>
+        <span>Tunnels dug ............ <b>ok</b></span>
+        <span>Story seeds stored ..... <b>ok</b></span>
+        <span>Chain link ............. <b>Robinhood Chain</b></span>
+      </div>
+      <h1>An ant that <em>tells fables.</em></h1>
+      <p class="lede">Meet Formi, the colony's storyteller. Pick a hero, a moral and a place — she digs up a fresh pixel fable, then lets you choose where the tunnel goes next.</p>
+      <div class="hero__cta">
+        <a class="btn btn--honey" href="#engine">▶ Start a fable</a>
+        <button class="btn" type="button" id="heroAsk">Ask Formi</button>
+        <a class="btn btn--dark" href="#token">$FABLE</a>
+      </div>
+    </div>
+    <div class="hill">
+      <canvas class="px" id="hill" width="640" height="440" aria-label="Animated pixel cross-section of an anthill with ants carrying story scrolls through tunnels"></canvas>
+      <div class="hill__tag">Colony status · <b>awake</b> · <span id="antCount">0</span> ants carrying tales</div>
+    </div>
+  </section>
+
+  <div class="strip" role="list">
+    <div role="listitem"><span class="k">Storyteller</span><span class="v">Formi, ant AI</span></div>
+    <div role="listitem"><span class="k">Format</span><span class="v">Branching fables, 3 paths each</span></div>
+    <div role="listitem"><span class="k">Length</span><span class="v">Up to 4 chapters + a moral</span></div>
+    <div role="listitem"><span class="k">Chain</span><span class="v">Robinhood Chain · pons.family</span></div>
+  </div>
+
+  <!-- STORY ENGINE -->
+  <section class="block" id="engine">
+    <div class="sec-head">
+      <span class="eyebrow">The story engine</span>
+      <h2>Dig up a fable.</h2>
+      <p>Every tale is written live for you. Choose the pieces, press the button, then steer each chapter. Finished tales go into your Fable Book.</p>
+    </div>
+    <div class="engine">
+      <div class="win">
+        <div class="win__bar"><span>Story seeds</span><span class="win__ctl"><i>_</i><i>□</i></span></div>
+        <div class="win__body">
+          <div class="field">
+            <label class="label" for="hero">Hero</label>
+            <select id="hero">
+              <option>a young worker ant</option>
+              <option>a lazy grasshopper</option>
+              <option>a proud stag beetle</option>
+              <option>a lost firefly</option>
+              <option>a greedy magpie</option>
+              <option>a patient snail</option>
+              <option>a trader cricket who watches the tape</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label" for="custom">…or your own hero</label>
+            <input type="text" id="custom" maxlength="80" placeholder="e.g. a ladybug who hates rain" autocomplete="off">
+          </div>
+          <div class="field">
+            <label class="label" for="place">Setting</label>
+            <select id="place">
+              <option>the old oak's root tunnels</option>
+              <option>a flooded meadow after the storm</option>
+              <option>the sugar market under the picnic table</option>
+              <option>a moonlit mushroom village</option>
+              <option>the first frost of winter</option>
+              <option>a glowing night market of fireflies</option>
+            </select>
+          </div>
+          <div class="field">
+            <span class="label" id="moralLbl">Moral</span>
+            <div class="chips" role="group" aria-labelledby="moralLbl" id="morals"></div>
+          </div>
+          <div class="field">
+            <span class="label" id="lenLbl">Chapter length</span>
+            <div class="seg" role="group" aria-labelledby="lenLbl" id="lenSeg">
+              <button type="button" data-v="short" aria-pressed="true">Short</button>
+              <button type="button" data-v="long" aria-pressed="false">Long</button>
+            </div>
+          </div>
+          <div class="engine__go">
+            <button class="btn btn--honey" type="button" id="goBtn">▶ Tell a fable</button>
+            <button class="btn" type="button" id="diceBtn" title="Random seeds">Surprise me</button>
+          </div>
+          <p class="label" style="color:var(--edge);margin:0">Written by Claude on your account. First tale asks your permission.</p>
+        </div>
+      </div>
+
+      <div class="win">
+        <div class="win__bar win__bar--leaf"><span id="taleBar">Fable reader</span><span class="win__ctl"><i>_</i><i>□</i><i>×</i></span></div>
+        <div class="win__body">
+          <article class="paper tale" id="tale" aria-live="polite">
+            <div class="tale__meta">
+              <span class="tag tag--sample" id="taleTag">Sample tale</span>
+              <span class="label" id="taleSeeds">Hero: cricket · Moral: don't chase every pump</span>
+            </div>
+            <h3 id="taleTitle">The Cricket Who Read the Tape</h3>
+            <div class="tale__text" id="taleText"></div>
+            <div class="moral" id="taleMoral"><span class="label">Moral</span><span id="moralText"></span></div>
+            <div class="choices" id="choices"></div>
+            <div class="status" id="status"></div>
+            <div class="tale__tools">
+              <button class="btn" type="button" id="stopBtn" hidden>■ Stop</button>
+              <button class="btn" type="button" id="saveBtn">Save to Fable Book</button>
+              <button class="btn" type="button" id="copyBtn">Copy tale</button>
+              <button class="btn" type="button" id="endBtn" hidden>Write the ending</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLONY -->
+  <section class="block" id="colony">
+    <div class="sec-head">
+      <span class="eyebrow">How a fable gets made</span>
+      <h2>Four ants, one tunnel.</h2>
+      <p>Ponsfable works like a real colony: small jobs, handed down the tunnel, until a story comes out the other end.</p>
+    </div>
+    <div class="colony">
+      <div class="win"><div class="win__bar"><span>Scout</span></div><div class="win__body"><div class="paper role">
+        <canvas class="px" width="16" height="16" data-sprite="scout"></canvas>
+        <span class="step">Step 1 · gather</span><h3>Scout finds the seeds</h3>
+        <p>Your hero, setting and moral are carried in as story seeds — the only thing Formi reads.</p>
+      </div></div></div>
+      <div class="win"><div class="win__bar"><span>Weaver</span></div><div class="win__body"><div class="paper role">
+        <canvas class="px" width="16" height="16" data-sprite="weaver"></canvas>
+        <span class="step">Step 2 · write</span><h3>Weaver spins the chapter</h3>
+        <p>A short chapter in plain, warm language — the way fables were told around the nest.</p>
+      </div></div></div>
+      <div class="win"><div class="win__bar"><span>Elder</span></div><div class="win__body"><div class="paper role">
+        <canvas class="px" width="16" height="16" data-sprite="elder"></canvas>
+        <span class="step">Step 3 · branch</span><h3>Elder opens three paths</h3>
+        <p>Every chapter ends at a fork. You pick the tunnel; the story remembers where it came from.</p>
+      </div></div></div>
+      <div class="win"><div class="win__bar"><span>Keeper</span></div><div class="win__body"><div class="paper role">
+        <canvas class="px" width="16" height="16" data-sprite="keeper"></canvas>
+        <span class="step">Step 4 · keep</span><h3>Keeper shelves the tale</h3>
+        <p>The ending lands with its moral, and the finished fable goes into your Fable Book.</p>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- BOOK -->
+  <section class="block" id="book">
+    <div class="sec-head">
+      <span class="eyebrow">The fable book</span>
+      <h2>Tales from the colony.</h2>
+      <p>Three colony classics, plus every tale you save. Saved tales stay in this browser.</p>
+    </div>
+    <div class="book" id="shelf"></div>
+  </section>
+
+  <!-- TOKEN -->
+  <section class="block" id="token">
+    <div class="sec-head">
+      <span class="eyebrow">Token</span>
+      <h2>$FABLE fuels the colony.</h2>
+      <p>Launching on the pons.family launchpad on Robinhood Chain. The contract address appears here the moment it's live.</p>
+    </div>
+    <div class="token">
+      <div class="win">
+        <div class="win__bar"><span>Launchpad</span><span class="win__ctl"><i>_</i><i>□</i><i>×</i></span></div>
+        <div class="win__body">
+          <div class="paper tk-head">
+            <img class="px" src="/logo.png" width="72" height="72" alt="PONSFABLE">
+            <div>
+              <div class="label">Robinhood Chain · pons.family</div>
+              <div class="sym">$FABLE</div>
+              <div style="color:var(--ink-soft)">An ant that tells fables.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <a class="btn btn--honey" id="launchBtn" href="#token" aria-disabled="true">Launch on pons.family · soon</a>
+            <a class="btn" id="chartBtn" href="#token" aria-disabled="true">View chart</a>
+            <a class="btn" href="#top">Follow on X</a>
+          </div>
+          <div class="paper">
+            <div class="label">Contract address</div>
+            <div class="ca" id="caText">Not deployed yet — check back at launch.</div>
+            <div style="margin-top:10px"><button class="btn" type="button" id="copyCa" disabled>Copy address</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="win">
+        <div class="win__bar win__bar--leaf"><span>Colony ledger</span></div>
+        <div class="win__body">
+          <dl class="facts">
+            <dt>Ticker</dt><dd>$FABLE</dd>
+            <dt>Chain</dt><dd>Robinhood Chain</dd>
+            <dt>Launchpad</dt><dd>pons.family</dd>
+            <dt>Pair</dt><dd>ETH</dd>
+            <dt>Status</dt><dd>Pre-launch</dd>
+          </dl>
+          <div class="crt" aria-label="Launch checklist">
+            <p class="ok">[ok] story engine live</p>
+            <p class="ok">[ok] fable book live</p>
+            <p class="wait">[..] token deploy on pons.family</p>
+            <p class="wait">[..] DEX listing + chart</p>
+            <p class="wait">[..] holder-only long tales</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="block" id="roadmap">
+    <div class="sec-head">
+      <span class="eyebrow">Roadmap</span>
+      <h2>From egg to colony.</h2>
+      <p>An ant grows in four stages. So does Ponsfable.</p>
+    </div>
+    <div class="tunnel">
+      <div class="stage" data-s="live"><h3>Egg <span class="pill pill--live">Live</span></h3>
+        <ul><li>Live branching story engine with Formi</li><li>Fable Book with colony classics and saved tales</li><li>Ask Formi companion chat</li></ul></div>
+      <div class="stage" data-s="build"><h3>Larva <span class="pill pill--build">Building</span></h3>
+        <ul><li>$FABLE launch on pons.family, Robinhood Chain</li><li>Shareable pixel tale cards for X</li><li>Chiptune narration toggle</li></ul></div>
+      <div class="stage" data-s="next"><h3>Pupa <span class="pill">Next</span></h3>
+        <ul><li>Holder-only long tales and custom heroes</li><li>Daily colony fable, voted by the community</li><li>Wallet connect and tale history across devices</li></ul></div>
+      <div class="stage" data-s="later"><h3>Colony <span class="pill">Later</span></h3>
+        <ul><li>Canon library: the best community tales become lore</li><li>Mint a finished fable as an on-chain keepsake</li><li>Buyback-and-lock from engine fees</li></ul></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="block" id="faq">
+    <div class="sec-head"><span class="eyebrow">Questions</span><h2>Ask the nest.</h2></div>
+    <div class="faq">
+      <details open><summary>What is Ponsfable?</summary><p>An AI storyteller shaped like an ant. Formi writes short, branching fables — animal tales with a moral — and lets you choose what happens after each chapter.</p></details>
+      <details><summary>Does it cost anything to tell a fable?</summary><p>No fee on the site. Tales are written by Claude using your own Claude account, so the first tale asks your permission and counts toward your usage.</p></details>
+      <details><summary>Where are my saved tales?</summary><p>In this browser's Fable Book. Clearing site data or switching devices starts a fresh book — cross-device history arrives in the Pupa stage.</p></details>
+      <details><summary>Is $FABLE live?</summary><p>Not yet. It launches on pons.family (Robinhood Chain). Only trust the contract address shown in the Launchpad window on this site.</p></details>
+      <details><summary>Is this part of the pons family?</summary><p>Yes — Ponsfable sits beside pons0X, ponsGET and PONSBVNKR, sharing the same pixel desktop DNA.</p></details>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <h4>Ponsfable</h4>
+      <div>An ant that tells fables. · <span id="year"></span></div>
+      <div style="margin-top:6px;max-width:48ch">Stories are fiction. Nothing here is financial advice.</div>
+    </div>
+    <div>
+      <h4>Pons family</h4>
+      <div class="fam">
+        <a class="btn btn--dark" href="https://pons0x.cc" target="_blank" rel="noopener">pons0X</a>
+        <a class="btn btn--dark" href="https://ponsget.xyz" target="_blank" rel="noopener">ponsGET</a>
+        <a class="btn btn--dark" href="https://ponsbvnker.cc" target="_blank" rel="noopener">PONSBVNKR</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<dialog id="reader">
+  <div class="win">
+    <div class="win__bar"><span id="readerBar">Fable</span><span class="win__ctl"><i class="x" id="readerX" role="button" tabindex="0" aria-label="Close">×</i></span></div>
+    <div class="paper reader tale" id="readerBody"></div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;margin:12px 14px 0">
+      <button class="btn" type="button" id="readerDel" hidden>Remove</button>
+      <button class="btn btn--honey" type="button" id="readerClose">Close book</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="buddy" id="buddy">
+  <div class="win chat" id="chat" hidden>
+    <div class="win__bar"><span>Ask Formi</span><span class="win__ctl"><i class="x" id="chatX" role="button" tabindex="0" aria-label="Close chat">×</i></span></div>
+    <div class="log" id="log" aria-live="polite"></div>
+    <form id="chatForm">
+      <input type="text" id="chatIn" maxlength="400" placeholder="Ask about fables, ants, $FABLE…" autocomplete="off">
+      <button class="btn btn--honey" type="submit" id="chatSend">Ask</button>
+    </form>
+  </div>
+  <div class="bubble" id="bubble">Formi here. Colony storyteller. Give me a hero and a moral — I'll dig up the rest.</div>
+  <div class="buddy__row">
+    <div class="buddy__btns"><button type="button" id="askBtn">Ask</button><button type="button" id="hushBtn">Hush</button></div>
+    <canvas class="px" id="buddyPx" width="16" height="16" aria-label="Formi the ant"></canvas>
+  </div>
+</div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
